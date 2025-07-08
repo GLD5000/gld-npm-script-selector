@@ -1,0 +1,26 @@
+{
+  "name": "@gld5000-cli/script-selector",
+  "version": "1.0.0",
+  "description": "Builds a CLI menu to select and run your NPM package.json scripts",
+  "keywords": [
+    "CLI",
+    "NPM",
+    "script",
+    "package.json"
+  ],
+  "homepage": "https://github.com/GLD5000/gld-npm-script-selector#readme",
+  "bugs": {
+    "url": "https://github.com/GLD5000/gld-npm-script-selector/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GLD5000/gld-npm-script-selector.git"
+  },
+  "license": "MIT",
+  "author": "GLD5000",
+  "type": "ESM",
+  "main": "bin/index.mjs",
+  "scripts": {
+    "test": "node test.mjs"
+  }
+}
