@@ -1,4 +1,4 @@
-import * as fs from "fs";
-const packageJsonContent = fs.readFileSync('./package.json', 'utf8');
-const {scripts} = JSON.parse(packageJsonContent)
+import { parsePackageScripts } from "../src/util/parsePackageScripts.mjs";
+
+const scripts = parsePackageScripts();
 console.log('scripts:', scripts);

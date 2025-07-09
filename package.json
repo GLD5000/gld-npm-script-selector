@@ -21,6 +21,7 @@
   "type": "module",
   "main": "bin/index.mjs",
   "scripts": {
+    "//echoTest": "Logs 'test.mjs' to the console",
     "echoTest": "echo 'test.mjs'",
     "test": "node test.mjs"
   }
