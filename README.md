@@ -7,13 +7,13 @@ Builds a CLI menu to select and run your NPM package.json scripts
 ### Install
 
 ```
-npm i -D @gld5000-cli/readline
+npm i -D @gld5000-cli/script-selector
 ```
 
 ### Update
 
 ```
-npm update @gld5000-cli/readline
+npm update @gld5000-cli/script-selector
 ```
 
 ### Import (.mjs)
