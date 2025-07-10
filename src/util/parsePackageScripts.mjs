@@ -51,7 +51,7 @@ async function selectNpmScript(packageScriptObject) {
  */
 function returnToRoot() {
   console.log("__dirname", __dirname);
-  const subDirectories = __dirname.split("src")[1];
+  const subDirectories = __dirname.split("node_modules")[1];
   console.log("subDirectories", subDirectories);
   const returnString = `../${subDirectories.replaceAll(/([\\\/]+\w+)/g, "../")}`;
   console.log("returnString", returnString);
