@@ -1,11 +1,11 @@
 import * as fs from "fs";
+import { exec } from "node:child_process";
 
 /**
  *
- * @param {string} input
  * @returns {Record<string,Record<string,string>>}
  */
-export function parsePackageScripts(input) {
+export function getPackageScriptObject() {
   const packageJsonContent = fs.readFileSync("./package.json", "utf8");
   const { scripts } = JSON.parse(packageJsonContent);
   return Object.entries(scripts).reduce(scriptReducer, {});
@@ -22,4 +22,18 @@ export function parsePackageScripts(input) {
     }
     return acc;
   }
+}
+/**
+ *
+ * @param {string} command
+ */
+function executeScript(command) {
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return JSON.stringify(error);
+    }
+    console.log(`stdout: ${stdout}`);
+    console.error(`stderr: ${stderr}`);
+  });
 }

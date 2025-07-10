@@ -24,5 +24,8 @@
     "//echoTest": "Logs 'test.mjs' to the console",
     "echoTest": "echo 'test.mjs'",
     "test": "node test.mjs"
+  },
+  "devDependencies": {
+    "@gld5000-cli/readline": "^1.0.4"
   }
 }
