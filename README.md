@@ -2,13 +2,13 @@
 
 Builds a CLI menu to select and run your NPM package.json scripts
 
-## Example Usage
-
-### Install
+## Install
 
 ```
 npm i -D @gld5000-cli/script-selector
 ```
+
+## Example Usage
 
 ### Import (.mjs)
 
@@ -53,12 +53,14 @@ runSelector();
 
 Enter line number to select (default is batch:renamer: Batch rename images to e.g. de-duplicate file names based on parent folders):
 ```
-### Update
+
+## Update
 
 ```
 npm update @gld5000-cli/script-selector
 ```
-### Uninstall
+
+## Uninstall
 
 ```
 npm uninstall @gld5000-cli/script-selector
