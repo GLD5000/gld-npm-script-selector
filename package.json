@@ -1,6 +1,6 @@
 {
-  "name": "@gld5000-test/script-selector",
-  "version": "1.0.4",
+  "name": "@gld5000-cli/script-selector",
+  "version": "1.0.0",
   "description": "Builds a CLI menu to select and run your NPM package.json scripts",
   "keywords": [
     "CLI",
@@ -21,11 +21,7 @@
   "type": "module",
   "main": "bin/index.mjs",
   "scripts": {
-    "//echoTest": "Logs 'test.mjs' to the console",
-    "echoTest": "echo 'test.mjs'",
-    "//name": "Asks your name",
-    "name": "node src/testScript.mjs",
-    "test": "node test.mjs"
+    "test": "echo 'test'"
   },
   "devDependencies": {
     "@gld5000-cli/readline": "^1.0.4",

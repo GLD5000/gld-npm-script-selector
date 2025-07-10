@@ -45,11 +45,8 @@ async function selectNpmScript(packageScriptObject) {
  *Returns ../ suffix to get back to the src folder
  */
 function returnToRoot() {
-  console.log("__dirname", __dirname);
   const subDirectories = __dirname.split("node_modules").at(-1);
-  console.log("subDirectories", subDirectories);
   const returnString = `../${subDirectories.replaceAll(/([\\\/]+[^\\\/]+)/g, "../")}`;
-  console.log("returnString", returnString);
   return returnString;
 }
 /**
@@ -77,6 +74,5 @@ async function executeScript(command) {
 export async function runSelectedScript() {
   const packageScriptObject = getPackageScriptObject();
   const command = await selectNpmScript(packageScriptObject);
-  console.log("command", command);
   await executeScript(command);
 }
