@@ -1,6 +1,6 @@
 {
   "name": "@gld5000-test/script-selector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Builds a CLI menu to select and run your NPM package.json scripts",
   "keywords": [
     "CLI",

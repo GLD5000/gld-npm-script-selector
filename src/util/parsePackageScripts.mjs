@@ -53,7 +53,7 @@ function returnToRoot() {
   console.log("__dirname", __dirname);
   const subDirectories = __dirname.split("node_modules")[1];
   console.log("subDirectories", subDirectories);
-  const returnString = `../${subDirectories.replaceAll(/([\\\/]+\w+)/g, "../")}`;
+  const returnString = `../${subDirectories.replaceAll(/([\\\/]+[^\\\/]+)/g, "../")}`;
   console.log("returnString", returnString);
   return returnString;
 }
