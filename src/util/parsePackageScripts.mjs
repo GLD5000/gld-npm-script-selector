@@ -1,13 +1,9 @@
 import * as fs from "fs";
-import { exec } from "node:child_process";
 import { selectLineFromStringArray } from "@gld5000-cli/readline";
-import * as util from "node:util";
 import path from "node:path";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename);
-
-const awaitableExec = util.promisify(exec);
 
 /**
  *
@@ -39,7 +35,6 @@ async function selectNpmScript(packageScriptObject) {
   const lines = getScriptStringArray(packageScriptObject);
   const selectedLine = await selectLineFromStringArray(lines);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
-  // return `npm run ${selectedLine.split(": ")[0]}`
   const relativePath = `${returnToRoot()}${
     selectedScriptObject.script.split(" ").at(-1)
   }`;
@@ -78,18 +73,6 @@ async function executeScript(command) {
   } catch (error) {
     console.log(error);
   }
-  // await awaitableExec(command, (error, stdout, stderr) => {
-  //   if (error) {
-  //     console.error(`exec error: ${error}`);
-  //     return JSON.stringify(error);
-  //   }
-  // if (stdout) {
-  //   console.log("stdout", stdout);
-  // }
-
-  // if (stderr) {
-  //   console.log(`Error: ${stderr}`);
-  // }  });
 }
 export async function runSelectedScript() {
   const packageScriptObject = getPackageScriptObject();
