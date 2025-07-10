@@ -1,4 +1,3 @@
-import { parsePackageScripts } from "../src/util/parsePackageScripts.mjs";
+import { runSelectedScript } from "../src/util/parsePackageScripts.mjs";
 
-const scripts = parsePackageScripts();
-console.log('scripts:', scripts);
+await runSelectedScript();

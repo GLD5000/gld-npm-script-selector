@@ -12,21 +12,21 @@ exec(`node ${path.join(process.cwd(),"bin", "index.mjs")}`, (error, stdout, stde
   }
 
   if (stderr) {
-    console.log(`FFmpeg output: ${stderr}`);
+    console.log(`Error: ${stderr}`);
   }
 });
 //echoTest
-exec(`npm run echoTest`, (error, stdout, stderr) => {
-  //process.cwd()
-  if (error) {
-    console.error(`Error: ${error}`);
-    return;
-  }
-  if (stdout) {
-    console.log("stdout", stdout);
-  }
+// exec(`npm run echoTest`, (error, stdout, stderr) => {
+//   //process.cwd()
+//   if (error) {
+//     console.error(`Error: ${error}`);
+//     return;
+//   }
+//   if (stdout) {
+//     console.log("stdout", stdout);
+//   }
 
-  if (stderr) {
-    console.log(`FFmpeg output: ${stderr}`);
-  }
-});
+//   if (stderr) {
+//     console.log(`FFmpeg output: ${stderr}`);
+//   }
+// });

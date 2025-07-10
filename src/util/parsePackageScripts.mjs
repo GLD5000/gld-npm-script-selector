@@ -1,11 +1,11 @@
 import * as fs from "fs";
 import { exec } from "node:child_process";
-
+import { selectLineFromStringArray } from "@gld5000-cli/readline";
 /**
  *
  * @returns {Record<string,Record<string,string>>}
  */
-export function getPackageScriptObject() {
+function getPackageScriptObject() {
   const packageJsonContent = fs.readFileSync("./package.json", "utf8");
   const { scripts } = JSON.parse(packageJsonContent);
   return Object.entries(scripts).reduce(scriptReducer, {});
@@ -25,6 +25,27 @@ export function getPackageScriptObject() {
 }
 /**
  *
+ * @param {Record<string,Record<string,string>>} packageScriptObject
+ */
+async function selectNpmScript(packageScriptObject) {
+  const lines = getScriptStringArray(packageScriptObject);
+  const selectedLine = await selectLineFromStringArray(lines);
+  const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
+  return selectedScriptObject.script;
+}
+/**
+ *
+ * @param {Record<string,Record<string,string>>} packageScriptObject
+ * @returns {string[]}
+ */
+function getScriptStringArray(packageScriptObject) {
+  return Object.entries(packageScriptObject).map((entry) => {
+    const [key, { comment }] = entry;
+    return `${key}${comment ? `: ${comment}` : ""}`;
+  });
+}
+/**
+ *
  * @param {string} command
  */
 function executeScript(command) {
@@ -33,7 +54,16 @@ function executeScript(command) {
       console.error(`exec error: ${error}`);
       return JSON.stringify(error);
     }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-  });
+  if (stdout) {
+    console.log("stdout", stdout);
+  }
+
+  if (stderr) {
+    console.log(`Error: ${stderr}`);
+  }  });
+}
+export async function runSelectedScript() {
+  const packageScriptObject = getPackageScriptObject();
+  const command = await selectNpmScript(packageScriptObject);
+  executeScript(command);
 }
