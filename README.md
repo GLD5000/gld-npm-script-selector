@@ -10,12 +10,6 @@ Builds a CLI menu to select and run your NPM package.json scripts
 npm i -D @gld5000-cli/script-selector
 ```
 
-### Update
-
-```
-npm update @gld5000-cli/script-selector
-```
-
 ### Import (.mjs)
 
 ```
@@ -58,4 +52,14 @@ runSelector();
 6. frames-folder-animate-multi: Process multiple folders of images, converting png, jpg etc. to animated webp and mp4
 
 Enter line number to select (default is batch:renamer: Batch rename images to e.g. de-duplicate file names based on parent folders):
+```
+### Update
+
+```
+npm update @gld5000-cli/script-selector
+```
+### Uninstall
+
+```
+npm uninstall @gld5000-cli/script-selector
 ```
