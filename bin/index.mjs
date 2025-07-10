@@ -1,3 +1,8 @@
 import { runSelectedScript } from "../src/util/parsePackageScripts.mjs";
+import { logTimestampArrow } from "@gld5000k/timestamp";
 
-await runSelectedScript();
+export async function runSelector() {
+  logTimestampArrow();
+  await runSelectedScript();
+}
+runSelector();

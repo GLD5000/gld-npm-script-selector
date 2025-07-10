@@ -1,6 +1,14 @@
 import * as fs from "fs";
 import { exec } from "node:child_process";
 import { selectLineFromStringArray } from "@gld5000-cli/readline";
+import * as util from "node:util";
+import path from "node:path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename);
+
+const awaitableExec = util.promisify(exec);
+
 /**
  *
  * @returns {Record<string,Record<string,string>>}
@@ -31,7 +39,23 @@ async function selectNpmScript(packageScriptObject) {
   const lines = getScriptStringArray(packageScriptObject);
   const selectedLine = await selectLineFromStringArray(lines);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
-  return selectedScriptObject.script;
+  // return `npm run ${selectedLine.split(": ")[0]}`
+  const relativePath = `${returnToRoot()}${
+    selectedScriptObject.script.split(" ").at(-1)
+  }`;
+  console.log("relativePath", relativePath);
+  return relativePath;
+}
+/**
+ *Returns ../ suffix to get back to the src folder
+ */
+function returnToRoot() {
+  console.log("__dirname", __dirname);
+  const subDirectories = __dirname.split("src")[1];
+  console.log("subDirectories", subDirectories);
+  const returnString = `../${subDirectories.replaceAll(/([\\\/]+\w+)/g, "../")}`;
+  console.log("returnString", returnString);
+  return returnString;
 }
 /**
  *
@@ -48,22 +72,28 @@ function getScriptStringArray(packageScriptObject) {
  *
  * @param {string} command
  */
-function executeScript(command) {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return JSON.stringify(error);
-    }
-  if (stdout) {
-    console.log("stdout", stdout);
+async function executeScript(command) {
+  try {
+    await import(command);
+  } catch (error) {
+    console.log(error);
   }
+  // await awaitableExec(command, (error, stdout, stderr) => {
+  //   if (error) {
+  //     console.error(`exec error: ${error}`);
+  //     return JSON.stringify(error);
+  //   }
+  // if (stdout) {
+  //   console.log("stdout", stdout);
+  // }
 
-  if (stderr) {
-    console.log(`Error: ${stderr}`);
-  }  });
+  // if (stderr) {
+  //   console.log(`Error: ${stderr}`);
+  // }  });
 }
 export async function runSelectedScript() {
   const packageScriptObject = getPackageScriptObject();
   const command = await selectNpmScript(packageScriptObject);
-  executeScript(command);
+  console.log("command", command);
+  await executeScript(command);
 }
