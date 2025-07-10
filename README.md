@@ -46,8 +46,8 @@ runSelector();
 ```
 1. batch:renamer: Batch rename images to e.g. de-duplicate file names based on parent folders
 2. image:object: Create TypeScript image object files for use in codebase
-3. image:normalise: Process images, converting png to jpg and appending dimensions to filenames ready for upload to SFCC
-4. image:normalise:resize-even: Resizes images to even sizes, converting png to jpg and appending dimensions to filenames ready for upload to SFCC
+3. image:normalise: Process images, converting png to jpg and appending dimensions to filenames ready for upload
+4. image:normalise:resize-even: Resizes images to even sizes, converting png to jpg and appending dimensions to filenames ready for upload
 5. frames-folder-animate-single: Process one folder of images, converting png, jpg etc. to animated webp and mp4
 6. frames-folder-animate-multi: Process multiple folders of images, converting png, jpg etc. to animated webp and mp4
 
