@@ -5,4 +5,3 @@ export async function runSelector() {
   logTimestampArrow();
   await runSelectedScript();
 }
-runSelector();

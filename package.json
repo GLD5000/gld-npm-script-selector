@@ -1,6 +1,6 @@
 {
   "name": "@gld5000-cli/script-selector",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Builds a CLI menu to select and run your NPM package.json scripts",
   "keywords": [
     "CLI",
@@ -19,7 +19,8 @@
   "license": "MIT",
   "author": "GLD5000",
   "type": "module",
-  "main": "bin/index.mjs",
+  "main": "src/index.mjs",
+  "bin": "bin/index.mjs",
   "scripts": {
     "test": "echo 'test'"
   },
