@@ -2,8 +2,6 @@ import * as fs from "fs";
 import { selectLineFromStringArray } from "@gld5000-cli/readline";
 import path from "node:path";
 import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.dirname(__filename);
 
 /**
  *
@@ -35,20 +33,26 @@ async function selectNpmScript(packageScriptObject) {
   const lines = getScriptStringArray(packageScriptObject);
   const selectedLine = await selectLineFromStringArray(lines);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
-  const relativePath = returnToRoot(selectedScriptObject);
+  const targetPath = selectedScriptObject.script.split(" ").at(-1);
+  const relativePath = returnToRoot(targetPath);
   console.log("relativePath", relativePath);
   return relativePath;
 }
 /**
- *Returns ../ suffix to get back to the src folder
+ * Returns import path from root-relative npm script path 
+ * E.G. /src/foo.mjs
+ * @param {string} targetPath
+ * @returns {string}
  */
-function returnToRoot(selectedScriptObject) {
-  const targetPath = selectedScriptObject.script.split(" ").at(-1);
+function returnToRoot(targetPath) {
+  const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+  const __dirname = path.dirname(__filename);
+
   console.log("targetPath", targetPath);
-  const workingDir = __dirname;//process.cwd();
+  const workingDir = __dirname; //process.cwd();
   console.log("workingDir", workingDir);
-  
-  return path.relative(workingDir, targetPath).replaceAll('\\','/');
+
+  return path.relative(workingDir, targetPath).replaceAll("\\", "/");
   // const subDirectories = __dirname.split("node_modules").at(-1);
   // const returnString = `../${subDirectories.replaceAll(/([\\\/]+[^\\\/]+)/g, "../")}`;
   // return `${returnString}${targetPath}`;
