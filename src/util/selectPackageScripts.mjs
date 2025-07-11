@@ -1,7 +1,8 @@
 import * as fs from "fs";
 import { selectLineFromStringArray } from "@gld5000-cli/readline";
-import path from "node:path";
-import { fileURLToPath } from "url";
+// import path from "node:path";
+// import { fileURLToPath } from "url";
+import { executeScript } from "./execCommands.mjs";
 
 /**
  *
@@ -33,23 +34,21 @@ async function selectNpmScript(packageScriptObject) {
   const lines = getScriptStringArray(packageScriptObject);
   const selectedLine = await selectLineFromStringArray(lines);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
-  const targetPath = selectedScriptObject.script.split(" ").at(-1);
-  const relativePath = resolveRelativePath(targetPath);
-  console.log("relativePath", relativePath);
-  return relativePath;
+  const selectedScript = selectedScriptObject.script;// assumes Node
+  return selectedScript;
 }
-/**
- * Returns import path from root-relative npm script path 
- * E.G. /src/foo.mjs
- * @param {string} targetPath
- * @returns {string}
- */
-function resolveRelativePath(targetPath) {
-  const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-  const __dirname = path.dirname(__filename);
-  const workingDir = __dirname;
-  return path.relative(workingDir, targetPath).replaceAll("\\", "/");
-}
+// /**
+//  * Returns import path from root-relative npm script path 
+//  * E.G. /src/foo.mjs
+//  * @param {string} targetPath
+//  * @returns {string}
+//  */
+// function resolveRelativePath(targetPath) {
+//   const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+//   const __dirname = path.dirname(__filename);
+//   const workingDir = __dirname;
+//   return path.relative(workingDir, targetPath).replaceAll("\\", "/");
+// }
 /**
  *
  * @param {Record<string,Record<string,string>>} packageScriptObject
@@ -61,19 +60,19 @@ function getScriptStringArray(packageScriptObject) {
     return `${key}${comment ? `: ${comment}` : ""}`;
   });
 }
-/**
- *
- * @param {string} command
- */
-async function executeScript(command) {
-  try {
-    await import(command);
-  } catch (error) {
-    console.log(error);
-  }
-}
+// /**
+//  *
+//  * @param {string} command
+//  */
+// async function executeScript(command) {
+//   try {
+//     await import(command);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 export async function runSelectedScript() {
   const packageScriptObject = getPackageScriptObject();
-  const command = await selectNpmScript(packageScriptObject);
-  await executeScript(command);
+  const script = await selectNpmScript(packageScriptObject);
+  await executeScript(script);
 }

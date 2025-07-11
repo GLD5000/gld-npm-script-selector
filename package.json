@@ -22,7 +22,7 @@
   "main": "src/index.mjs",
   "bin": "bin/index.mjs",
   "scripts": {
-    "test": "node test.mjs"
+    "test": "clear && echo 'Hello' && node test.mjs"
   },
   "dependencies": {
     "@gld5000-cli/readline": "^1.0.4",

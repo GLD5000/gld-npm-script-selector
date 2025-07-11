@@ -54,6 +54,18 @@ runSelector();
 Enter line number to select (default is batch:renamer: Batch rename images to e.g. de-duplicate file names based on parent folders):
 ```
 
+## Supported Commands
+
+- clear
+- echo
+- node [file]
+
+### E.G.:
+
+```
+"clear && echo 'Hello' && node test.mjs"
+```
+
 ## Update
 
 ```
@@ -65,6 +77,7 @@ npm update @gld5000-cli/script-selector
 ```
 npm uninstall @gld5000-cli/script-selector
 ```
+
 ## Execute Directly from NPM
 
 ```
