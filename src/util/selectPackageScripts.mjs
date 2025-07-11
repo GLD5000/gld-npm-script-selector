@@ -34,7 +34,7 @@ async function selectNpmScript(packageScriptObject) {
   const selectedLine = await selectLineFromStringArray(lines);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
   const targetPath = selectedScriptObject.script.split(" ").at(-1);
-  const relativePath = returnToRoot(targetPath);
+  const relativePath = resolveRelativePath(targetPath);
   console.log("relativePath", relativePath);
   return relativePath;
 }
@@ -44,18 +44,11 @@ async function selectNpmScript(packageScriptObject) {
  * @param {string} targetPath
  * @returns {string}
  */
-function returnToRoot(targetPath) {
+function resolveRelativePath(targetPath) {
   const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
   const __dirname = path.dirname(__filename);
-
-  console.log("targetPath", targetPath);
-  const workingDir = __dirname; //process.cwd();
-  console.log("workingDir", workingDir);
-
+  const workingDir = __dirname;
   return path.relative(workingDir, targetPath).replaceAll("\\", "/");
-  // const subDirectories = __dirname.split("node_modules").at(-1);
-  // const returnString = `../${subDirectories.replaceAll(/([\\\/]+[^\\\/]+)/g, "../")}`;
-  // return `${returnString}${targetPath}`;
 }
 /**
  *
