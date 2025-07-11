@@ -65,3 +65,8 @@ npm update @gld5000-cli/script-selector
 ```
 npm uninstall @gld5000-cli/script-selector
 ```
+## Execute Directly from NPM
+
+```
+npx @gld5000-cli/script-selector
+```
