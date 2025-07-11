@@ -44,7 +44,11 @@ async function selectNpmScript(packageScriptObject) {
  */
 function returnToRoot(selectedScriptObject) {
   const targetPath = selectedScriptObject.script.split(" ").at(-1);
-  return path.relative(process.cwd(), targetPath);
+  console.log("targetPath", targetPath);
+  const workingDir = __dirname;//process.cwd();
+  console.log("workingDir", workingDir);
+  
+  return path.relative(workingDir, targetPath).replaceAll('\\','/');
   // const subDirectories = __dirname.split("node_modules").at(-1);
   // const returnString = `../${subDirectories.replaceAll(/([\\\/]+[^\\\/]+)/g, "../")}`;
   // return `${returnString}${targetPath}`;
