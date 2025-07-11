@@ -13,7 +13,7 @@ npm i -D @gld5000-cli/script-selector
 ### Import (.mjs)
 
 ```
-import { runSelector } from '@gld5000-test/script-selector'
+import { runSelector } from '@gld5000-cli/script-selector'
 ```
 
 ### Run Script Selector

@@ -1,6 +1,6 @@
 {
   "name": "@gld5000-cli/script-selector",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Builds a CLI menu to select and run your NPM package.json scripts",
   "keywords": [
     "CLI",
@@ -23,7 +23,7 @@
   "scripts": {
     "test": "echo 'test'"
   },
-  "devDependencies": {
+  "dependencies": {
     "@gld5000-cli/readline": "^1.0.4",
     "@gld5000k/timestamp": "^1.0.9"
   }
