@@ -35,19 +35,19 @@ async function selectNpmScript(packageScriptObject) {
   const lines = getScriptStringArray(packageScriptObject);
   const selectedLine = await selectLineFromStringArray(lines);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
-  const relativePath = `${returnToRoot()}${
-    selectedScriptObject.script.split(" ").at(-1)
-  }`;
+  const relativePath = returnToRoot(selectedScriptObject);
   console.log("relativePath", relativePath);
   return relativePath;
 }
 /**
  *Returns ../ suffix to get back to the src folder
  */
-function returnToRoot() {
-  const subDirectories = __dirname.split("node_modules").at(-1);
-  const returnString = `../${subDirectories.replaceAll(/([\\\/]+[^\\\/]+)/g, "../")}`;
-  return returnString;
+function returnToRoot(selectedScriptObject) {
+  const targetPath = selectedScriptObject.script.split(" ").at(-1);
+  return path.relative(process.cwd(), targetPath);
+  // const subDirectories = __dirname.split("node_modules").at(-1);
+  // const returnString = `../${subDirectories.replaceAll(/([\\\/]+[^\\\/]+)/g, "../")}`;
+  // return `${returnString}${targetPath}`;
 }
 /**
  *
