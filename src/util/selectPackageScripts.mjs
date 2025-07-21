@@ -10,9 +10,14 @@ import path from "path";
  * @returns {Record<string,Record<string,string>>}
  */
 function getPackageScriptObject(packageFilePath) {
-    console.log(packageFilePath);
+  console.log(packageFilePath);
 
-  const packageJsonContent = fs.readFileSync(packageFilePath||"package.json", "utf8");
+  const packageJsonContent = fs.readFileSync(
+    packageFilePath
+      ? path.join(packageFilePath, "package.json")
+      : "package.json",
+    "utf8"
+  );
   const { scripts } = JSON.parse(packageJsonContent);
   return Object.entries(scripts).reduce(scriptReducer, {});
   function scriptReducer(acc, curr) {
@@ -37,11 +42,11 @@ async function selectNpmScript(packageScriptObject) {
   const lines = getScriptStringArray(packageScriptObject);
   const selectedLine = await selectLineFromStringArray(lines);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
-  const selectedScript = selectedScriptObject.script;// assumes Node
+  const selectedScript = selectedScriptObject.script; // assumes Node
   return selectedScript;
 }
 // /**
-//  * Returns import path from root-relative npm script path 
+//  * Returns import path from root-relative npm script path
 //  * E.G. /src/foo.mjs
 //  * @param {string} targetPath
 //  * @returns {string}
