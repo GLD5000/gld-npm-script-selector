@@ -31,6 +31,7 @@ function resolveRelativePath(targetPath) {
   const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
   const __dirname = path.dirname(__filename);
   const workingDir = __dirname;
+  console.log("workingDir", workingDir);
   return path.relative(workingDir, targetPath).replaceAll("\\", "/");
 }
 export function getCommandTypeParam(command) {

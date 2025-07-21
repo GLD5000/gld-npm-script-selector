@@ -3,13 +3,14 @@ import { selectLineFromStringArray } from "@gld5000-cli/readline";
 // import path from "node:path";
 // import { fileURLToPath } from "url";
 import { executeScript } from "./execCommands.mjs";
+import path from "path";
 
 /**
  *
  * @returns {Record<string,Record<string,string>>}
  */
 function getPackageScriptObject() {
-  const packageJsonContent = fs.readFileSync("./package.json", "utf8");
+  const packageJsonContent = fs.readFileSync(path.join(process.cwd(),"package.json"), "utf8");
   const { scripts } = JSON.parse(packageJsonContent);
   return Object.entries(scripts).reduce(scriptReducer, {});
   function scriptReducer(acc, curr) {
