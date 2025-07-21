@@ -10,6 +10,8 @@ import path from "path";
  * @returns {Record<string,Record<string,string>>}
  */
 function getPackageScriptObject(packageFilePath) {
+    console.log(packageFilePath);
+
   const packageJsonContent = fs.readFileSync(packageFilePath||"package.json", "utf8");
   const { scripts } = JSON.parse(packageJsonContent);
   return Object.entries(scripts).reduce(scriptReducer, {});
