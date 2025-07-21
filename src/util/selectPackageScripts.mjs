@@ -12,10 +12,7 @@ import { fileURLToPath } from "url";
  * @returns {Record<string,Record<string,string>>}
  */
 function getPackageScriptObject() {
-    const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-  const __dirname = path.dirname(__filename);
-
-  const packageJsonContent = fs.readFileSync(path.join(__dirname,"package.json"), "utf8");
+  const packageJsonContent = fs.readFileSync("package.json", "utf8");
   const { scripts } = JSON.parse(packageJsonContent);
   return Object.entries(scripts).reduce(scriptReducer, {});
   function scriptReducer(acc, curr) {
