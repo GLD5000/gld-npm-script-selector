@@ -30,14 +30,14 @@ export async function nodeCommand(targetPath, additionalPath) {
 function resolveRelativePath(targetPath, additionalPath) {
   const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
   const __dirname = path.dirname(__filename);
-  console.log("additionalPath", additionalPath);
-  console.log("targetPath", targetPath);
+  // console.log("additionalPath", additionalPath);
+  // console.log("targetPath", targetPath);
   const resolvedTarget = additionalPath ? path.join(additionalPath, targetPath) : targetPath;
-  console.log("resolvedTarget", resolvedTarget);
+  // console.log("resolvedTarget", resolvedTarget);
   const workingDir = __dirname;
-  console.log("workingDir", workingDir);
+  // console.log("workingDir", workingDir);
   const relativePath = path.relative(workingDir, resolvedTarget).replaceAll("\\", "/");
-  console.log("relativePath", relativePath);
+  // console.log("relativePath", relativePath);
   return relativePath
 }
 export function getCommandTypeParam(command) {
