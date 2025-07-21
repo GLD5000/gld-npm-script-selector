@@ -4,15 +4,13 @@ import { selectLineFromStringArray } from "@gld5000-cli/readline";
 // import { fileURLToPath } from "url";
 import { executeScript } from "./execCommands.mjs";
 import path from "path";
-import path from "path";
-import { fileURLToPath } from "url";
 
 /**
  *
  * @returns {Record<string,Record<string,string>>}
  */
-function getPackageScriptObject() {
-  const packageJsonContent = fs.readFileSync("package.json", "utf8");
+function getPackageScriptObject(packageFilePath) {
+  const packageJsonContent = fs.readFileSync(packageFilePath||"package.json", "utf8");
   const { scripts } = JSON.parse(packageJsonContent);
   return Object.entries(scripts).reduce(scriptReducer, {});
   function scriptReducer(acc, curr) {
@@ -74,8 +72,8 @@ function getScriptStringArray(packageScriptObject) {
 //     console.log(error);
 //   }
 // }
-export async function runSelectedScript() {
-  const packageScriptObject = getPackageScriptObject();
+export async function runSelectedScript(packageFilePath) {
+  const packageScriptObject = getPackageScriptObject(packageFilePath);
   const script = await selectNpmScript(packageScriptObject);
   await executeScript(script);
 }
