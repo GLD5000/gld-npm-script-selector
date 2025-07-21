@@ -82,5 +82,5 @@ function getScriptStringArray(packageScriptObject) {
 export async function runSelectedScript(packageFilePath) {
   const packageScriptObject = getPackageScriptObject(packageFilePath);
   const script = await selectNpmScript(packageScriptObject);
-  await executeScript(script);
+  await executeScript(script, packageFilePath);
 }

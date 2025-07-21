@@ -13,8 +13,8 @@ export function clear() {
 export function echo(message) {
   console.log(message);
 }
-export async function nodeCommand(targetPath) {
-  const relativePath = resolveRelativePath(targetPath);
+export async function nodeCommand(targetPath, additionalPath) {
+  const relativePath = resolveRelativePath(targetPath, additionalPath);
   try {
     await import(relativePath);
   } catch (error) {
@@ -27,12 +27,18 @@ export async function nodeCommand(targetPath) {
  * @param {string} targetPath
  * @returns {string}
  */
-function resolveRelativePath(targetPath) {
+function resolveRelativePath(targetPath, additionalPath) {
   const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
   const __dirname = path.dirname(__filename);
+  console.log("additionalPath", additionalPath);
+  console.log("targetPath", targetPath);
+  const resolvedTarget = additionalPath ? path.join(additionalPath, targetPath) : targetPath;
+  console.log("resolvedTarget", resolvedTarget);
   const workingDir = __dirname;
   console.log("workingDir", workingDir);
-  return path.relative(workingDir, targetPath).replaceAll("\\", "/");
+  const relativePath = path.relative(workingDir, resolvedTarget).replaceAll("\\", "/");
+  console.log("relativePath", relativePath);
+  return relativePath
 }
 export function getCommandTypeParam(command) {
     console.log(command)
@@ -57,7 +63,7 @@ export function getCommandTypeParam(command) {
   }
 }
 
-async function commandSwitch(type, param) {
+async function commandSwitch(type, param, additionalPath) {
   console.log(type);
   switch (type) {
     case "echo":
@@ -67,7 +73,7 @@ async function commandSwitch(type, param) {
       clear();
       break;
     case "node":
-      await nodeCommand(param);
+      await nodeCommand(param, additionalPath);
       break;
 
     default:
@@ -75,12 +81,12 @@ async function commandSwitch(type, param) {
   }
 }
 
-export async function executeScript(script) {
+export async function executeScript(script, additionalPath) {
     const commands = splitScript(script);
     console.log(commands);
   for (let i in commands) {
     const command = commands[i];
     const { type, param } = getCommandTypeParam(command);
-    await commandSwitch(type, param);
+    await commandSwitch(type, param, additionalPath);
   }
 }
