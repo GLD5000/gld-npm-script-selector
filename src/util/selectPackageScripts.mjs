@@ -38,9 +38,9 @@ function getPackageScriptObject(packageFilePath) {
  *
  * @param {Record<string,Record<string,string>>} packageScriptObject
  */
-async function selectNpmScript(packageScriptObject) {
+async function selectNpmScript(packageScriptObject, defaultIndex) {
   const lines = getScriptStringArray(packageScriptObject);
-  const selectedLine = await selectLineFromStringArray(lines);
+  const selectedLine = await selectLineFromStringArray(lines, defaultIndex);
   const selectedScriptObject = packageScriptObject[selectedLine.split(": ")[0]];
   const selectedScript = selectedScriptObject.script; // assumes Node
   return selectedScript;
@@ -79,8 +79,8 @@ function getScriptStringArray(packageScriptObject) {
 //     console.log(error);
 //   }
 // }
-export async function runSelectedScript(packageFilePath) {
+export async function runSelectedScript(packageFilePath, defaultIndex) {
   const packageScriptObject = getPackageScriptObject(packageFilePath);
-  const script = await selectNpmScript(packageScriptObject);
+  const script = await selectNpmScript(packageScriptObject, defaultIndex);
   await executeScript(script, packageFilePath);
 }
