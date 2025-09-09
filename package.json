@@ -25,7 +25,7 @@
     "test": "clear && echo 'Hello' && node test.mjs"
   },
   "dependencies": {
-    "@gld5000-cli/readline": "^1.0.4",
-    "@gld5000k/timestamp": "^1.0.9"
+    "@gld5000-cli/readline": "latest",
+    "@gld5000k/timestamp": "latest"
   }
 }
